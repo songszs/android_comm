@@ -11,10 +11,12 @@ import android.content.Context;
 public class Router {
 
     public static final String URL_LOGIN_EVENTBUS = "url_login_eventbus";
+    public static final String URL_LOGIN_EVENTBUS_ = "url_login_eventbus";
 
 
     public void startActivity(Context context, String url)
     {
+
 
     }
 }
