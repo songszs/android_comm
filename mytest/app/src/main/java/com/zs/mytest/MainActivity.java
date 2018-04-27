@@ -6,8 +6,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.zs.test.aidl.AIDLFragment;
 import com.zs.base.view.BaseFragment;
+import com.zs.test.aspect.AspectFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void init() {
-        mBaseFragment = new AIDLFragment();
+        mBaseFragment = new AspectFragment();
         FragmentManager     fragmentManager     = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.constraintLayout, mBaseFragment);

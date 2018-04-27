@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import com.zs.base.view.BaseFragment;
 import com.zs.mode.Info;
-import com.zs.mytest.IMyAidlInterface;
 import com.zs.mytest.R;
 
 import static android.content.Context.BIND_AUTO_CREATE;

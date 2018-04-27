@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.zs.mode.Info;
-import com.zs.mytest.IMyAidlInterface;
 
 /**
  * Author:      ZangSong

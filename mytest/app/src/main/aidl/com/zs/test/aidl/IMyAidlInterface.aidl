@@ -1,5 +1,5 @@
 // IMyAidlInterface.aidl
-package com.zs.mytest;
+package com.zs.test.aidl;
 import com.zs.mode.Info;
 import com.zs.test.aidl.OnCallInfo;
 
