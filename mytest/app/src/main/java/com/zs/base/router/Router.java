@@ -50,7 +50,7 @@ public class Router {
     }
 
 
-    public class RouterItem {
+    public static class RouterItem {
         private Class activity;
         private Class fragment;
 

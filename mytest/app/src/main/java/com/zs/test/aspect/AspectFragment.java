@@ -28,12 +28,15 @@ public class AspectFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TestJoinPoints points = new TestJoinPoints();
-
-        points.testCall(5);
-
-        points.testReturnValue();
+//
+//        points.testCall(5);
+//        points.testCall(10);
+//
+//        points.testReturnValue();
 
 //        points.testUnCatchException();
+
+        points.testFlow();
     }
 
     @Override

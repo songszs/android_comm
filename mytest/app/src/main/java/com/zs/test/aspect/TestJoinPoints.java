@@ -24,4 +24,10 @@ public class TestJoinPoints {
     {
         throw new NullPointerException("My Test NullPointerException");
     }
+
+    public void testFlow()
+    {
+        testCall(2000);
+//        testReturnValue();
+    }
 }
