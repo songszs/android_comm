@@ -24,7 +24,7 @@ import butterknife.OnClick;
 public class EventBusFragment extends BaseFragment {
 
     @BindView(R.id.hello)
-    TextView mTextView;
+    public TextView mTextView;
 
     @Override
     protected int createViewId() {
@@ -44,6 +44,24 @@ public class EventBusFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onEvent2(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onEvent3(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onEvent4(CustomEvent customEvent)
     {
         mTextView.setText(customEvent.getMessage());
     }
