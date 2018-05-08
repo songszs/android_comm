@@ -19,8 +19,7 @@ import java.util.List;
  */
 public class Router {
 
-    public static final String URL_LOGIN_EVENTBUS  = "url_login_eventbus";
-    public static final String URL_LOGIN_EVENTBUS_ = "url_login_eventbus";
+
 
     public HashMap<String, RouterItem> mRouterMap;
 
@@ -67,7 +66,7 @@ public class Router {
 
         Intent intent = new Intent();
         intent.setClass(context, activity);
-        intent.putExtra(BundleKeys.KEY_FRAGMENT_NAME, fragment.getClass().getName());
+        intent.putExtra(BundleKeys.KEY_FRAGMENT_NAME, fragment.getName());
 
         if (bundle != null) {
             intent.putExtra(bundleKey, bundle);

@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.zs.R;
 import com.zs.base.view.BaseFragment;
 import com.zs.mode.Info;
-import com.zs.mytest.R;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 

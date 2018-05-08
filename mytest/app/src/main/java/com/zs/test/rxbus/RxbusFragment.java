@@ -2,8 +2,8 @@ package com.zs.test.rxbus;
 
 import android.os.Bundle;
 
+import com.zs.R;
 import com.zs.base.view.BaseFragment;
-import com.zs.mytest.R;
 
 /**
  * @author: ZangSong
