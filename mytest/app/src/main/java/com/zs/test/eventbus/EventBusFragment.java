@@ -1,12 +1,19 @@
 package com.zs.test.eventbus;
 
-import android.widget.Toast;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
+import com.zs.R;
+import com.zs.base.router.AuthRouterManager;
 import com.zs.base.view.BaseFragment;
-import com.zs.mytest.R;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author: ZangSong
@@ -15,15 +22,59 @@ import org.greenrobot.eventbus.ThreadMode;
  * @description: mytest
  */
 public class EventBusFragment extends BaseFragment {
+
+    @BindView(R.id.hello)
+    public TextView mTextView;
+
     @Override
     protected int createViewId() {
-        return R.layout.activity_main;
+        return R.layout.main;
     }
 
+    @Override
+    protected void initView(View view) {
+        super.initView(view);
+    }
+
+    @Override
+    protected void initData(Bundle bundle) {
+        super.initData(bundle);
+        EventBus.getDefault().register(this);
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CustomEvent customEvent)
     {
-        Toast.makeText(getActivity(),customEvent.getMessage(),Toast.LENGTH_LONG).show();
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onEvent2(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onEvent3(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onEvent4(CustomEvent customEvent)
+    {
+        mTextView.setText(customEvent.getMessage());
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R.id.hello)
+    public void onClickHello(View v)
+    {
+        AuthRouterManager.getInstance().open(getActivity(),AuthRouterManager.URL_LOGIN_EVENTBUS2);
     }
 }

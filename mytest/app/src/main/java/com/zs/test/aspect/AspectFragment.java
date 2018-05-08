@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.zs.R;
 import com.zs.base.view.BaseFragment;
-import com.zs.mytest.R;
 
 /**
  * @author: ZangSong

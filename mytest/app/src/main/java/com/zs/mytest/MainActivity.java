@@ -1,17 +1,14 @@
 package com.zs.mytest;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
-import com.zs.base.view.BaseFragment;
-import com.zs.test.aspect.AspectFragment;
+import com.zs.R;
+import com.zs.base.router.AuthRouterManager;
 
 public class MainActivity extends AppCompatActivity {
-
-    BaseFragment mBaseFragment;
 
 
     @Override
@@ -22,10 +19,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void init() {
-        mBaseFragment = new AspectFragment();
-        FragmentManager     fragmentManager     = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.constraintLayout, mBaseFragment);
-        fragmentTransaction.commit();
+        findViewById(R.id.hello).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_EVENTBUS);
+            }
+        });
     }
 }

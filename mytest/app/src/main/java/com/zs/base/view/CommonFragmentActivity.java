@@ -2,9 +2,9 @@ package com.zs.base.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import com.zs.base.config.BundleKeys;
 
@@ -14,14 +14,13 @@ import com.zs.base.config.BundleKeys;
  * @date: 18-4-24 下午8:29
  * @description: mytest
  */
-public class CommonFragmentActivity extends BaseActivity {
+public class CommonFragmentActivity extends AppCompatActivity {
 
     protected Fragment mFragment;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Intent intent    = getIntent();
         String className = intent.getStringExtra(BundleKeys.KEY_FRAGMENT_NAME);
         try {
@@ -30,5 +29,6 @@ public class CommonFragmentActivity extends BaseActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        setTitle(mFragment.getClass().getSimpleName());
     }
 }

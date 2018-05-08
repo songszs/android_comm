@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.zs.mytest"
+<manifest package="com.zs"
           xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".MainActivity">
+        <activity android:name=".mytest.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".base.view.CommonFragmentActivity">
         </activity>
 
         <service android:name="com.zs.test.aidl.RemoteService" android:process=":remote"/>
