@@ -100,6 +100,6 @@ dependencies {
 
     compile project(':annotation')
 
-    annotationProcessor project(':generateCode')
+    annotationProcessor project(':generatecode')
 
 }

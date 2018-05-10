@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/annotation/annotation.iml" filepath="$PROJECT_DIR$/annotation/annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/generateCode/generateCode.iml" filepath="$PROJECT_DIR$/generateCode/generateCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generatecode/generateCode.iml" filepath="$PROJECT_DIR$/generatecode/generateCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/mytest.iml" filepath="$PROJECT_DIR$/mytest.iml" />
     </modules>
   </component>
