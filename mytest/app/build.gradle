@@ -7,7 +7,7 @@ import org.aspectj.tools.ajc.Main
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.zs.mytest"
         minSdkVersion 15
@@ -15,6 +15,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [eventBusIndex: "com.zs.test.eventbus.EventBusTest"]   //生成的索引文件名
+            }
+        }
     }
     buildTypes {
         release {
@@ -22,7 +28,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+
+
 }
+
 
 final def log = project.logger
 final def variants = project.android.applicationVariants
@@ -75,7 +86,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 
-    compile 'org.greenrobot:eventbus:3.1.1'
 
     testCompile 'junit:junit:4.12'
 
@@ -83,5 +93,13 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+
+    compile 'org.greenrobot:eventbus:3.1.1'
+    annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.0.1'
+
+    compile project(':annotation')
+
+    annotationProcessor project(':generateCode')
 
 }

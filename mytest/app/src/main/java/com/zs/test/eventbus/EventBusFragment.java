@@ -39,6 +39,7 @@ public class EventBusFragment extends BaseFragment {
     @Override
     protected void initData(Bundle bundle) {
         super.initData(bundle);
+        EventBus.builder().addIndex(new EventBusTest()).installDefaultEventBus();
         EventBus.getDefault().register(this);
     }
 

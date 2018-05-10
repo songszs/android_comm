@@ -3,6 +3,7 @@ package com.zs.base.router;
 import android.content.Context;
 
 import com.zs.base.view.CommonFragmentActivity;
+import com.zs.test.annotation.generate.GenerateCodeFragment;
 import com.zs.test.aspect.AspectFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
@@ -21,6 +22,7 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_EVENTBUS  = "url_login_eventbus";
     public static final String URL_LOGIN_EVENTBUS2  = "url_login_eventbus2";
     public static final String URL_LOGIN_ASPECT = "url_login_aspect";
+    public static final String URL_LOGIN_GENERATE_CODE_FRAGMENT = "url_login_generate_code_fragment";
 
     private static AuthRouterManager instance = null;
 
@@ -60,6 +62,7 @@ public class AuthRouterManager {
         mRouter.map(URL_LOGIN_EVENTBUS, EventBusFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_ASPECT, AspectFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_EVENTBUS2, EventBusFragment2.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_GENERATE_CODE_FRAGMENT, GenerateCodeFragment.class, CommonFragmentActivity.class);
     }
 
     public void open(Context context,String url)
