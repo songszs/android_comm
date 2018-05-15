@@ -31,6 +31,7 @@ import javax.tools.JavaFileObject;
  * @email: gnoszsong@gmail.com
  * @date: 18-5-10 下午3:13
  * @description: mytest
+ * 参考资料 https://race604.com/annotation-processing/
  */
 @SupportedAnnotationTypes({"com.zs.annotation.GenerateTest", "com.zs.annotation.TestMethod", "com.zs.annotation.TestClass", "com.zs.annotation.TestParams"})
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
