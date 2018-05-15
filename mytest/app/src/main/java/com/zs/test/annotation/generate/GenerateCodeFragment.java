@@ -1,11 +1,9 @@
 package com.zs.test.annotation.generate;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.zs.R;
 import com.zs.annotation.GenerateTest;
-import com.zs.annotation.test.GeneratedClass;
 import com.zs.base.view.BaseFragment;
 
 /**
@@ -24,6 +22,6 @@ public class GenerateCodeFragment extends BaseFragment {
     @Override
     protected void initData(Bundle bundle) {
         super.initData(bundle);
-        Toast.makeText(getContext(), new GeneratedClass().getMessage(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), new GeneratedClass().getMessage(), Toast.LENGTH_LONG).show();
     }
 }
