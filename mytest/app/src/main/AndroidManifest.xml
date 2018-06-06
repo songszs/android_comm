@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="com.zs.base.MyTestApplication"
@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".base.view.CommonFragmentActivity">
         </activity>
+        <activity android:name=".test.butterknife.ButterKnifeActivity"/>
 
         <service android:name="com.zs.test.aidl.RemoteService" android:process=":remote"/>
     </application>

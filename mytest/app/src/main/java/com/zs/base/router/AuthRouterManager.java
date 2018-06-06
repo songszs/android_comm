@@ -6,8 +6,10 @@ import com.zs.base.view.CommonFragmentActivity;
 import com.zs.test.andfix.AndFixFragment;
 import com.zs.test.annotation.generate.GenerateCodeFragment;
 import com.zs.test.aspect.AspectFragment;
+import com.zs.test.butterknife.ButterKnifeFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
+import com.zs.test.retrofit.RetrofitFragment;
 
 /**
  * @author: ZangSong
@@ -25,6 +27,8 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_ASPECT = "url_login_aspect";
     public static final String URL_LOGIN_GENERATE_CODE_FRAGMENT = "url_login_generate_code_fragment";
     public static final String URL_LOGIN_ANDFIX = "url_login_andfix";
+    public static final String URL_LOGIN_BUTTER_KNIFE = "url_login_butter_knife";
+    public static final String URL_LOGIN_RETROFIT = "url_login_retrofit";
 
     private static AuthRouterManager instance = null;
 
@@ -66,6 +70,8 @@ public class AuthRouterManager {
         mRouter.map(URL_LOGIN_EVENTBUS2, EventBusFragment2.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_GENERATE_CODE_FRAGMENT, GenerateCodeFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_ANDFIX, AndFixFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_BUTTER_KNIFE, ButterKnifeFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_RETROFIT, RetrofitFragment.class, CommonFragmentActivity.class);
     }
 
     public void open(Context context,String url)
