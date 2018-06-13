@@ -10,6 +10,7 @@ import com.zs.test.butterknife.ButterKnifeFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
 import com.zs.test.retrofit.RetrofitFragment;
+import com.zs.test.thread.ThreadFragment;
 
 /**
  * @author: ZangSong
@@ -29,6 +30,7 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_ANDFIX = "url_login_andfix";
     public static final String URL_LOGIN_BUTTER_KNIFE = "url_login_butter_knife";
     public static final String URL_LOGIN_RETROFIT = "url_login_retrofit";
+    public static final String URL_LOGIN_THREAD = "url_login_thread";
 
     private static AuthRouterManager instance = null;
 
@@ -72,6 +74,7 @@ public class AuthRouterManager {
         mRouter.map(URL_LOGIN_ANDFIX, AndFixFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_BUTTER_KNIFE, ButterKnifeFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_RETROFIT, RetrofitFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_THREAD, ThreadFragment.class, CommonFragmentActivity.class);
     }
 
     public void open(Context context,String url)

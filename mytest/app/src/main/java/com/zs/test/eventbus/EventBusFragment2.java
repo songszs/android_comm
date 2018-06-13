@@ -1,6 +1,5 @@
 package com.zs.test.eventbus;
 
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
@@ -30,8 +29,6 @@ public class EventBusFragment2 extends BaseEventBusFragment {
         EventBus.builder().addIndex(new EventBusTest()).installDefaultEventBus();
         EventBus.getDefault().register(this);
         EventBus.getDefault().post(new CustomEvent("我测试一下EventBus"));
-
-        Message message = Message.obtain();
     }
 
     @OnClick(R.id.hello)
