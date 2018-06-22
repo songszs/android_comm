@@ -18,6 +18,8 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends Fragment {
 
+
+    private static String TAG = "BaseFragment";
     protected View     rootView;
     protected Unbinder mUnbinder;
 
@@ -33,6 +35,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = getClass().getCanonicalName();
         initData(savedInstanceState);
     }
 
@@ -51,7 +54,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void initData(Bundle bundle) {
-
     }
 
 

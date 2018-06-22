@@ -2,6 +2,7 @@ package com.zs.test;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -15,14 +16,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        init();
+//        init();
+
+        new Handler(getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_TOOTH);
+//                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_CLIENT_TOOTH);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_SERVER_TOOTH);
+            }
+        }, 1000);
     }
 
     protected void init() {
         findViewById(R.id.hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_THREAD);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_RETROFIT);
             }
         });
     }
