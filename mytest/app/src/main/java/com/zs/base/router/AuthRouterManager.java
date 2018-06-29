@@ -8,11 +8,13 @@ import com.zs.test.annotation.generate.GenerateCodeFragment;
 import com.zs.test.aspect.AspectFragment;
 import com.zs.test.bluetooth.ble.BLEClientFragment;
 import com.zs.test.bluetooth.ble.BLEServerFragment;
+import com.zs.test.bluetooth.fastble.FastBleFragment;
 import com.zs.test.bluetooth.tradition.TraditionalClientFragment;
 import com.zs.test.bluetooth.tradition.TraditionalServerFragment;
 import com.zs.test.butterknife.ButterKnifeFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
+import com.zs.test.okhttp.OkHttpFragment;
 import com.zs.test.retrofit.RetrofitFragment;
 import com.zs.test.thread.ThreadFragment;
 
@@ -39,6 +41,8 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_BLUE_SERVER_TOOTH = "url_login_blue_server_tooth";
     public static final String URL_LOGIN_BLUE_BLE_SERVER_TOOTH = "url_login_blue_ble_server_tooth";
     public static final String URL_LOGIN_BLUE_BLE_CLIENT_TOOTH = "url_login_blue_ble_client_tooth";
+    public static final String URL_LOGIN_BLUE_BLE_FASTBLE = "url_login_blue_ble_fastble";
+    public static final String URL_LOGIN_OKHTTP = "url_login_okhttp";
 
     private static AuthRouterManager instance = null;
 
@@ -88,6 +92,8 @@ public class AuthRouterManager {
 
         mRouter.map(URL_LOGIN_BLUE_BLE_SERVER_TOOTH, BLEServerFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_BLUE_BLE_CLIENT_TOOTH, BLEClientFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_OKHTTP, OkHttpFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_BLUE_BLE_FASTBLE, FastBleFragment.class, CommonFragmentActivity.class);
     }
 
     public void open(Context context,String url)

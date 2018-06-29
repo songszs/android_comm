@@ -14,15 +14,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelUuid;
 import android.support.annotation.RequiresApi;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.zs.R;
 import com.zs.base.view.BaseFragment;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,9 +53,10 @@ public class BLEServerFragment extends BaseFragment {
     private BluetoothDevice  targetDevice;
     private BluetoothGatt    mBluetoothGatt;
 
-    public static ParcelUuid SERVER_UUID  = ParcelUuid.fromString("12345678-abcd-1000-8000-123456000000");
-    public static UUID       SERVER_UUID_ = UUID.fromString("12345678-abcd-1000-8000-123456000000");
-    public static ParcelUuid D_UUID       = ParcelUuid.fromString("12345678-abcd-1000-8000-123456000001");
+    public static UUID SERVER_UUID_READ  = UUID.fromString("00007777-0000-1000-8000-00805f9b34fb");
+    public static UUID SERVER_UUID_WRITE = UUID.fromString("11212315-1111-2222-3333-00805f9b34fb");
+    public static UUID D_UUID_READ       = UUID.fromString("00007778-0000-1000-8000-00805f9b34fb");
+    public static UUID D_UUID_WRITE      = UUID.fromString("00007779-0000-1000-8000-00805f9b34fb");
 
     @Override
     protected int createViewId() {
@@ -77,7 +78,6 @@ public class BLEServerFragment extends BaseFragment {
 
         Log.e(TAG, "开始扫描...");
         mBluetoothAdapter.startLeScan(mLeScanCallback);
-        //        mBluetoothAdapter.startLeScan(mLeScanCallback);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -143,11 +143,15 @@ public class BLEServerFragment extends BaseFragment {
                         Log.e(TAG, device.getName() + " uuid" + uuid);
                     }
                 }
-                printScanRecord(scanRecord);
-                if (device.getName().equals("")) {
-                    targetDevice = device;
-
-                    connectHost();
+                ParsedAd ad = parseData(scanRecord);
+                Log.e(TAG, ad.toString());
+                for (UUID uuid : ad.uuids) {
+                    if (uuid.equals(SERVER_UUID_READ)) {
+                        Log.e(TAG, "找到设备，准备连接...");
+                        targetDevice = device;
+                        connectHost();
+                        break;
+                    }
                 }
             }
         }
@@ -168,6 +172,8 @@ public class BLEServerFragment extends BaseFragment {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.e(TAG, "设备连接成功");
                 gatt.discoverServices();
+                Log.e(TAG, "停止扫描...");
+                mBluetoothAdapter.stopLeScan(mLeScanCallback);
             }
             //断开连接
             else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
@@ -176,25 +182,70 @@ public class BLEServerFragment extends BaseFragment {
             }
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             super.onServicesDiscovered(gatt, status);
-            Log.e(TAG, "发现Services");
+            gatt.getServices();
+            Log.e(TAG, "发现Services start");
+            for (BluetoothGattService service : gatt.getServices()) {
+                Log.e(TAG, "service :" + service.getUuid());
+            }
+            Log.e(TAG, "发现Services end");
+
+            //从ble读内容
+            BluetoothGattService        gattService    = gatt.getService(SERVER_UUID_READ);
+            if(gattService != null)
+            {
+                BluetoothGattCharacteristic characteristic = gattService.getCharacteristic(D_UUID_READ);
+                gatt.readCharacteristic(characteristic);
+//
+
+                //往ble写内容
+//                BluetoothGattCharacteristic characteristicWrite = gattService.getCharacteristic(D_UUID_WRITE);
+//                gatt.setCharacteristicNotification(characteristicWrite, true);
+//                characteristicWrite.setValue("测试server");
+//                characteristicWrite.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+//                gatt.writeCharacteristic(characteristicWrite);
+
+                // 依据协议订阅相关信息,否则接收不到数据
+                gatt.setCharacteristicNotification(characteristic, true);
+                for (BluetoothGattDescriptor descriptor : characteristic.getDescriptors()) {
+                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                    gatt.writeDescriptor(descriptor);
+                }
+
+//                for (BluetoothGattDescriptor descriptor : characteristicWrite.getDescriptors()) {
+//                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+//                    gatt.writeDescriptor(descriptor);
+//                }
+            }
+
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
+            Log.e(TAG, "onCharacteristicRead " + new String(characteristic.getValue()));
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
         @Override
         public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicRead(gatt, characteristic, status);
+            Log.e(TAG, "onCharacteristicRead " + characteristic.getUuid());
+            if (characteristic.getValue() != null) {
+                Log.e(TAG, "onCharacteristicRead " + new String(characteristic.getValue()));
+            } else {
+                Log.e(TAG, "onCharacteristicRead " + characteristic.getValue().length);
+            }
         }
 
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicWrite(gatt, characteristic, status);
+            Log.e(TAG, "onCharacteristicWrite " + status);
         }
 
         @Override
@@ -205,6 +256,7 @@ public class BLEServerFragment extends BaseFragment {
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
             super.onDescriptorWrite(gatt, descriptor, status);
+            Log.e(TAG, "onCharacteristicWrite " + status);
         }
 
         @Override
@@ -234,76 +286,133 @@ public class BLEServerFragment extends BaseFragment {
     };
 
 
-    public void printScanRecord(byte[] scanRecord) {
-        // Simply print all raw bytes
-        try {
-            String decodedRecord = new String(scanRecord, "UTF-8");
-            Log.d("DEBUG", "decoded String : " + ByteArrayToString(scanRecord));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+    /**
+     * 解析广播数据
+     *
+     * @param adv_data
+     * @return
+     */
+    public static ParsedAd parseData(byte[] adv_data) {
+        ParsedAd   parsedAd = new ParsedAd();
+        ByteBuffer buffer   = ByteBuffer.wrap(adv_data).order(ByteOrder.LITTLE_ENDIAN);
+        while (buffer.remaining() > 2) {
+            byte length = buffer.get();
+            if (length == 0)
+                break;
+
+            byte type = buffer.get();
+            length -= 1;
+            switch (type) {
+                case 0x01: // Flags
+                    parsedAd.flags = buffer.get();
+                    length--;
+                    break;
+                case 0x02: // Partial list of 16-bit UUIDs
+                case 0x03: // Complete list of 16-bit UUIDs
+                case 0x14: // List of 16-bit Service Solicitation UUIDs
+                    while (length >= 2) {
+                        parsedAd.uuids.add(UUID.fromString(String.format(
+                                "%08x-0000-1000-8000-00805f9b34fb", buffer.getShort())));
+                        //                        byte[] bytes       = new byte[length];
+                        //                        buffer.get(bytes, 0, bytes.length);
+                        //                        parsedAd.uuids.add(UUID.nameUUIDFromBytes(bytes));
+                        length -= 2;
+                    }
+                    break;
+                case 0x04: // Partial list of 32 bit service UUIDs
+                case 0x05: // Complete list of 32 bit service UUIDs
+                    while (length >= 4) {
+                        parsedAd.uuids.add(UUID.fromString(String.format(
+                                "%08x-0000-1000-8000-00805f9b34fb", buffer.getInt())));
+                        //                        byte[] bytes       = new byte[length];
+                        //                        buffer.get(bytes, 0, bytes.length);
+                        //                        parsedAd.uuids.add(UUID.nameUUIDFromBytes(bytes));
+                        length -= 4;
+                    }
+                    break;
+                case 0x06: // Partial list of 128-bit UUIDs
+                case 0x07: // Complete list of 128-bit UUIDs
+                case 0x15: // List of 128-bit Service Solicitation UUIDs
+                    while (length >= 16) {
+                        long lsb = buffer.getLong();
+                        long msb = buffer.getLong();
+                        parsedAd.uuids.add(new UUID(msb, lsb));
+                        length -= 16;
+                    }
+                    break;
+                case 0x08: // Short local device name
+                case 0x09: // Complete local device name
+                    byte sb[] = new byte[length];
+                    buffer.get(sb, 0, length);
+                    length = 0;
+                    parsedAd.localName = new String(sb).trim();
+                    break;
+                case (byte) 0xFF: // Manufacturer Specific Data
+                    parsedAd.manufacturer = buffer.getShort();
+                    length -= 2;
+                    break;
+                default: // skip
+                    break;
+            }
+            if (length > 0) {
+                buffer.position(buffer.position() + length);
+            }
         }
-
-        // Parse data bytes into individual records
-        List<AdRecord> records = AdRecord.parseScanRecord(scanRecord);
-
-
-        // Print individual records
-        if (records.size() == 0) {
-            Log.i("DEBUG", "Scan Record Empty");
-        } else {
-            Log.i("DEBUG", "Scan Record: " + TextUtils.join(",", records));
-        }
-
+        return parsedAd;
     }
 
 
-    public static String ByteArrayToString(byte[] ba) {
-        StringBuilder hex = new StringBuilder(ba.length * 2);
-        for (byte b : ba) {
-            hex.append(b + " ");
-        }
-        return hex.toString();
-    }
+    public static final class ParsedAd {
+        String     localName;
+        List<UUID> uuids;
+        byte       flags;
+        short      manufacturer;
 
-    public static class AdRecord {
 
-        public AdRecord(int length, int type, byte[] data) {
-            String decodedRecord = "";
-            try {
-                decodedRecord = new String(data, "UTF-8");
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            Log.d("DEBUG", "Length: " + length + " Type : " + type + " Data : " + ByteArrayToString(data));
+        public ParsedAd() {
+            uuids = new ArrayList<>();
         }
 
-        // ...
+        public String getLocalName() {
+            return localName;
+        }
 
-        public static List<AdRecord> parseScanRecord(byte[] scanRecord) {
-            List<AdRecord> records = new ArrayList<AdRecord>();
+        public void setLocalName(String localName) {
+            this.localName = localName;
+        }
 
-            int index = 0;
-            while (index < scanRecord.length) {
-                int length = scanRecord[index++];
-                //Done once we run out of records
-                if (length == 0)
-                    break;
+        public List<UUID> getUuids() {
+            return uuids;
+        }
 
-                int type = scanRecord[index];
-                //Done if our record isn't a valid type
-                if (type == 0)
-                    break;
+        public void setUuids(List<UUID> uuids) {
+            this.uuids = uuids;
+        }
 
-                byte[] data = Arrays.copyOfRange(scanRecord, index + 1, index + length);
+        public byte getFlags() {
+            return flags;
+        }
 
-                records.add(new AdRecord(length, type, data));
-                //Advance
-                index += length;
-            }
+        public void setFlags(byte flags) {
+            this.flags = flags;
+        }
 
-            return records;
+        public short getManufacturer() {
+            return manufacturer;
+        }
+
+        public void setManufacturer(short manufacturer) {
+            this.manufacturer = manufacturer;
+        }
+
+        @Override
+        public String toString() {
+            return "ParsedAd{" +
+                   "localName='" + localName + '\'' +
+                   ", uuids=" + uuids +
+                   ", flags=" + flags +
+                   ", manufacturer=" + manufacturer +
+                   '}';
         }
     }
 }
