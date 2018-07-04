@@ -81,7 +81,6 @@ public class BLEClientFragment extends BaseFragment {
 
         //开启服务
         openServer();
-
         //发送广播
         sendBrocast();
 

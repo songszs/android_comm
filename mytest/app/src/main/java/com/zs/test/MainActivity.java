@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_FASTBLE);
+//                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_FASTBLE);
 //                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_CLIENT_TOOTH);
-//                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_SERVER_TOOTH);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_SERVER_TOOTH);
 //                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_OKHTTP);
             }
         }, 1000);

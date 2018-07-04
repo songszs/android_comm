@@ -89,9 +89,16 @@ public class BLEServerFragment extends BaseFragment {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void connectHost() {
-        if (targetDevice != null) {
-            mBluetoothGatt = targetDevice.connectGatt(getActivity(), true, mBluetoothGattCallback);
-        }
+        // 记得蓝牙连接以及发现服务需要在主线程中调用
+        // 否则会出现连接不上的问题
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (targetDevice != null) {
+                    mBluetoothGatt = targetDevice.connectGatt(getActivity(), true, mBluetoothGattCallback);
+                }
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -149,6 +156,7 @@ public class BLEServerFragment extends BaseFragment {
                     if (uuid.equals(SERVER_UUID_READ)) {
                         Log.e(TAG, "找到设备，准备连接...");
                         targetDevice = device;
+                        mBluetoothAdapter.stopLeScan(mLeScanCallback);
                         connectHost();
                         break;
                     }
@@ -161,9 +169,10 @@ public class BLEServerFragment extends BaseFragment {
 
         @Override
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+        public void onConnectionStateChange(final BluetoothGatt gatt, int status, int newState) {
             super.onConnectionStateChange(gatt, status, newState);
-
+            Log.e(TAG, "GATT newState " + newState);
+            Log.e(TAG, "GATT status " + status);
             //GATT建立成功
             if (BluetoothGatt.GATT_SUCCESS == status) {
                 Log.e(TAG, "GATT建立成功");
@@ -171,7 +180,13 @@ public class BLEServerFragment extends BaseFragment {
             //连接成功
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.e(TAG, "设备连接成功");
-                gatt.discoverServices();
+                //在主线程中调用
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        gatt.discoverServices();
+                    }
+                });
                 Log.e(TAG, "停止扫描...");
                 mBluetoothAdapter.stopLeScan(mLeScanCallback);
             }
@@ -180,6 +195,8 @@ public class BLEServerFragment extends BaseFragment {
                 Log.e(TAG, "断开连接");
                 gatt.close();
             }
+
+
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -194,19 +211,18 @@ public class BLEServerFragment extends BaseFragment {
             Log.e(TAG, "发现Services end");
 
             //从ble读内容
-            BluetoothGattService        gattService    = gatt.getService(SERVER_UUID_READ);
-            if(gattService != null)
-            {
+            BluetoothGattService gattService = gatt.getService(SERVER_UUID_READ);
+            if (gattService != null) {
                 BluetoothGattCharacteristic characteristic = gattService.getCharacteristic(D_UUID_READ);
                 gatt.readCharacteristic(characteristic);
-//
+                //
 
                 //往ble写内容
-//                BluetoothGattCharacteristic characteristicWrite = gattService.getCharacteristic(D_UUID_WRITE);
-//                gatt.setCharacteristicNotification(characteristicWrite, true);
-//                characteristicWrite.setValue("测试server");
-//                characteristicWrite.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
-//                gatt.writeCharacteristic(characteristicWrite);
+                //                BluetoothGattCharacteristic characteristicWrite = gattService.getCharacteristic(D_UUID_WRITE);
+                //                gatt.setCharacteristicNotification(characteristicWrite, true);
+                //                characteristicWrite.setValue("测试server");
+                //                characteristicWrite.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+                //                gatt.writeCharacteristic(characteristicWrite);
 
                 // 依据协议订阅相关信息,否则接收不到数据
                 gatt.setCharacteristicNotification(characteristic, true);
@@ -215,10 +231,10 @@ public class BLEServerFragment extends BaseFragment {
                     gatt.writeDescriptor(descriptor);
                 }
 
-//                for (BluetoothGattDescriptor descriptor : characteristicWrite.getDescriptors()) {
-//                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//                    gatt.writeDescriptor(descriptor);
-//                }
+                //                for (BluetoothGattDescriptor descriptor : characteristicWrite.getDescriptors()) {
+                //                    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                //                    gatt.writeDescriptor(descriptor);
+                //                }
             }
 
         }
