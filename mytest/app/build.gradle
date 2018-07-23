@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
@@ -7,7 +8,7 @@ import org.aspectj.tools.ajc.Main
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.1'
     defaultConfig {
         applicationId "com.zs.mytest"
         minSdkVersion 15
@@ -32,6 +33,10 @@ android {
 
 
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 
@@ -79,37 +84,27 @@ variants.all { variant ->
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
-
-
-    testCompile 'junit:junit:4.12'
-
-    compile 'org.aspectj:aspectjrt:1.8.9'
-
-    compile 'com.jakewharton:butterknife:8.5.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+    //    })
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    //    testCompile 'junit:junit:4.12'
+    implementation 'org.aspectj:aspectjrt:1.8.9'
+    implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-
-    compile 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.0.1'
-
-    compile project(':annotation')
-
+    implementation project(':annotation')
     annotationProcessor project(':generatecode')
-
-
-    compile 'com.alipay.euler:andfix:0.4.1@aar'
-
+    implementation 'com.alipay.euler:andfix:0.4.1@aar'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     implementation 'com.clj.fastble:FastBleLib:2.3.2'
-
-
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

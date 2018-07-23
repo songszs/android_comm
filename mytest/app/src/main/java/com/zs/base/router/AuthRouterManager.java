@@ -14,6 +14,7 @@ import com.zs.test.bluetooth.tradition.TraditionalServerFragment;
 import com.zs.test.butterknife.ButterKnifeFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
+import com.zs.test.nio.NioFragment;
 import com.zs.test.okhttp.OkHttpFragment;
 import com.zs.test.retrofit.RetrofitFragment;
 import com.zs.test.thread.ThreadFragment;
@@ -43,6 +44,7 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_BLUE_BLE_CLIENT_TOOTH = "url_login_blue_ble_client_tooth";
     public static final String URL_LOGIN_BLUE_BLE_FASTBLE = "url_login_blue_ble_fastble";
     public static final String URL_LOGIN_OKHTTP = "url_login_okhttp";
+    public static final String URL_LOGIN_NIO = "url_login_nio";
 
     private static AuthRouterManager instance = null;
 
@@ -94,6 +96,8 @@ public class AuthRouterManager {
         mRouter.map(URL_LOGIN_BLUE_BLE_CLIENT_TOOTH, BLEClientFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_OKHTTP, OkHttpFragment.class, CommonFragmentActivity.class);
         mRouter.map(URL_LOGIN_BLUE_BLE_FASTBLE, FastBleFragment.class, CommonFragmentActivity.class);
+
+        mRouter.map(URL_LOGIN_NIO, NioFragment.class, CommonFragmentActivity.class);
     }
 
     public void open(Context context,String url)
