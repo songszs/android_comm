@@ -45,7 +45,7 @@ class NioClient {
                         //合理的做法 先注册写事件 然后写完数据后 反注册
                         channel.write(ByteBuffer.wrap("hello server,i am client".toByteArray()))
 
-                        channel?.register(selector, SelectionKey.OP_READ)
+                        channel.register(selector, SelectionKey.OP_READ)
                     }
                     key.isReadable -> read(key)
                 }
