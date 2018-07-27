@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_NIO);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_GLIDE);
             }
         }, 1000);
     }
