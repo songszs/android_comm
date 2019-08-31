@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_GLIDE);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_BLUE_BLE_FASTBLE_CONFIG_NET);
             }
         }, 1000);
     }
