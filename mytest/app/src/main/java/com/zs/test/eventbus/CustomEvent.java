@@ -14,6 +14,11 @@ public class CustomEvent {
         this.message = message;
     }
 
+    public CustomEvent(int num)
+    {
+
+    }
+
     public String getMessage() {
         return message;
     }

@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class BaseEventBusFragment extends BaseFragment{
     @Override
     protected int createViewId() {
+        String[] strings = new String[5];
         return R.layout.main;
     }
 
