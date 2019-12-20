@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
 
-    private static String TAG = "BaseFragment";
+    protected static String TAG = "BaseFragment";
     protected View     rootView;
     protected Unbinder mUnbinder;
 
