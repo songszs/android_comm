@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.zs.R;
 import com.zs.base.router.AuthRouterManager;
+import com.zs.test.jni.HiJni;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,13 +21,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         //        init();
-        mainLooper = new Handler(getMainLooper());
-        mainLooper.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_RECYCLE_VIEW);
-            }
-        }, 1000);
+//        mainLooper = new Handler(getMainLooper());
+//        mainLooper.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_RECYCLE_VIEW);
+//            }
+//        }, 1000);
+        HiJni hiJni = new HiJni();
+        String hi = hiJni.sayHello();
+        Log.e("MainActivity ", "MainActivity: " + hi);
+        hiJni.setNum("6");
 
     }
 

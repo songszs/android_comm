@@ -23,6 +23,10 @@ android {
                 arguments = [eventBusIndex: "com.zs.test.eventbus.EventBusTest"]   //生成的索引文件名
             }
         }
+//        ndk { //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+//            abiFilters "armeabi", "armeabi-v7a"
+//            moduleName "hi_jni"
+//        }
     }
     buildTypes {
         release {
@@ -47,6 +51,7 @@ android {
             java {
                 srcDir 'src/main/java'
             }
+            jni.srcDirs = ['src/main/jni', 'src/main/jni/']
         }
     }
 
@@ -56,6 +61,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path file('src/main/jni/Android.mk')
+        }
     }
 }
 
@@ -138,7 +148,8 @@ dependencies {
 
     //dragger
     implementation 'com.google.dagger:dagger-android:2.17'
-    implementation 'com.google.dagger:dagger-android-support:2.17' // if you use the support libraries
+    implementation 'com.google.dagger:dagger-android-support:2.17'
+    // if you use the support libraries
     implementation 'com.google.dagger:dagger:2.17'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
