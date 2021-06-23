@@ -22,8 +22,9 @@ public class ThreadLocalTest {
 
     public void testThreadLocal()
     {
-        new Thread1().run();
-        new Thread2().run();
+        new Thread1().start();
+        new Thread2().start();
+        new Thread3().start();
     }
 
 
@@ -33,9 +34,9 @@ public class ThreadLocalTest {
         public void run() {
             synchronized (Thread1.class)
             {
-                Log.e(TAG, "ThreadLocalTest Thread1"+num.get());
+                Log.e(TAG, "ThreadLocalTest Thread1 "+num.get());
                 num.set("2");
-                Log.e(TAG, "ThreadLocalTest Thread1"+num.get());
+                Log.e(TAG, "ThreadLocalTest Thread1 "+num.get());
             }
         }
     }
@@ -45,8 +46,8 @@ public class ThreadLocalTest {
     {
         @Override
         public void run() {
-            synchronized (Thread1.class) {
-                Log.e(TAG, "ThreadLocalTest Thread2" + num.get());
+            synchronized (Thread2.class) {
+                Log.e(TAG, "ThreadLocalTest Thread2 " + num.get());
             }
         }
     }
@@ -57,6 +58,7 @@ public class ThreadLocalTest {
         @Override
         public void run() {
             super.run();
+            Log.e(TAG, "ThreadLocalTest Thread3 "+num.get());
         }
     }
 }

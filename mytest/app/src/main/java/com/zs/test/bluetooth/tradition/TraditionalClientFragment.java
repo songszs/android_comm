@@ -75,22 +75,24 @@ public class TraditionalClientFragment extends BaseFragment {
                 (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
-        // 确认设备支持蓝牙并且已经启用. 如果没有,
-        // 显示一个对话框要求用户授权启用蓝牙.
-        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            //            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        if(mBluetoothAdapter != null){
+            // 确认设备支持蓝牙并且已经启用. 如果没有,
+            // 显示一个对话框要求用户授权启用蓝牙.
+            if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                //            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+
+            mBluetoothDevices = new HashSet<>();
+            mBluetoothAdapter.startDiscovery();
+
+            getPairedDevices();
+            registerBroadcastReceiver();
+
+            IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_PAIRING_REQUEST);
+            intentFilter.setPriority(Integer.MAX_VALUE);
+            getActivity().registerReceiver(new BluetoothConnectActivityReceiver(), intentFilter);
         }
-
-        mBluetoothDevices = new HashSet<>();
-        mBluetoothAdapter.startDiscovery();
-
-        getPairedDevices();
-        registerBroadcastReceiver();
-
-        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_PAIRING_REQUEST);
-        intentFilter.setPriority(Integer.MAX_VALUE);
-        getActivity().registerReceiver(new BluetoothConnectActivityReceiver(), intentFilter);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)

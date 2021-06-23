@@ -63,7 +63,7 @@ public class AIDLFragment extends BaseFragment {
                 activity.startService(intent);
                 Log.e("mStart onCreate", "mStart onCreate");
 
-                activity.bindService(intent, mConnection, BIND_AUTO_CREATE);
+//                activity.bindService(intent, mConnection, BIND_AUTO_CREATE);
             }
         });
 

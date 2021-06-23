@@ -26,6 +26,7 @@ public class MyTest {
     {
         Man man = new Man();
         SellCarInvocationHandler sellCarInvocationHandler = new SellCarInvocationHandler(man);
+        //动态生成字节码Proxy类字节码，在其中调用invoke（）方法
         ISellHouse sellCar = (ISellHouse) Proxy.newProxyInstance(man.getClass().getClassLoader(), man.getClass().getInterfaces(), sellCarInvocationHandler);
         sellCar.sellHouse();
     }

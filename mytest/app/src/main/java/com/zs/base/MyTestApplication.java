@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 
 import com.alipay.euler.andfix.patch.PatchManager;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * @author: ZangSong
@@ -36,5 +37,10 @@ public class MyTestApplication extends Application {
         mPatchManager.init(appVersion);
         // 加载已经添加到PatchManager中的patch
         mPatchManager.loadPatch();
+
+        //初始化LeakCanary
+        LeakCanary.install(this);
+
     }
+
 }

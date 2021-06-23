@@ -25,11 +25,11 @@ public class ThreadFragment extends BaseFragment {
     @Override
     protected void initData(Bundle bundle) {
         super.initData(bundle);
-//        waitNofityTest = new WaitNofityTest(getActivity());
-//        waitNofityTest.testWartNotify();
+        waitNofityTest = new WaitNofityTest(getActivity());
+        waitNofityTest.testWartNotify();
 
-        threadLocalTest = new ThreadLocalTest();
-        threadLocalTest.testThreadLocal();
+//        threadLocalTest = new ThreadLocalTest();
+//        threadLocalTest.testThreadLocal();
     }
 
     @OnClick(R.id.button)

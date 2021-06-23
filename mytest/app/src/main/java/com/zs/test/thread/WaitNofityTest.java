@@ -66,9 +66,9 @@ public class WaitNofityTest {
                         //wait是在object的方法，需在同步代码块中调用，即表示阻塞正在持有该锁的线程
                         Log.e(TAG, getId()+": 1");
                         //先唤醒其他线程，不然会都处于阻塞的状态没有被唤醒
+                        lock.wait();
                         lock.notify();
                         //阻塞当前线程
-                        lock.wait();
                     }
                     Log.e(TAG,getId()+"正常退出");
                 } catch (InterruptedException e) {
@@ -96,9 +96,9 @@ public class WaitNofityTest {
                             //wait是在object的方法，需在同步代码块中调用，即表示阻塞正在持有该锁的线程
                             Log.e(TAG,getId()+": 2");
                             //唤醒其他可以竞争此锁的线程
+                            lock.wait();
                             lock.notify();
                             //阻塞当前线程
-                            lock.wait();
                         }
                         Log.e(TAG,getId()+"正常退出");
                     } catch (InterruptedException e) {
