@@ -20,6 +20,7 @@ import com.zs.test.butterknife.ButterKnifeFragment;
 import com.zs.test.eventbus.EventBusFragment;
 import com.zs.test.eventbus.EventBusFragment2;
 import com.zs.test.glide.GlideFragment;
+import com.zs.test.jetpack.viewmodel.JetpackFragment;
 import com.zs.test.mem.MemoryFragment;
 import com.zs.test.nio.NioFragment;
 import com.zs.test.okhttp.OkHttpFragment;
@@ -64,6 +65,7 @@ public class AuthRouterManager {
     public static final String URL_LOGIN_AIDL = "url_login_aidl";
     public static final String URL_LOGIN_MEMORY = "url_login_memory";
     public static final String URL_LOGIN_TOOLBAR = "url_login_toolbar";
+    public static final String URL_LOGIN_JETPACK = "url_login_jetpack";
 
     public static final String URL_LOGIN_SYSTEM_TRACE = "url_login_system_trace";
 
@@ -136,6 +138,7 @@ public class AuthRouterManager {
         mRouter.map(URL_LOGIN_MEMORY, MemoryFragment.class, CommonFragmentActivity.class);
 
         mRouter.map(URL_LOGIN_TOOLBAR, ToolbarFragment.class, CommonFragmentActivity.class);
+        mRouter.map(URL_LOGIN_JETPACK, JetpackFragment.class, CommonFragmentActivity.class);
 
     }
 

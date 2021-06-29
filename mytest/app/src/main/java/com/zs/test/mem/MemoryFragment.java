@@ -3,7 +3,8 @@ package com.zs.test.mem;
 import android.app.ActivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 
 import com.zs.R;
 import com.zs.base.view.BaseFragment;

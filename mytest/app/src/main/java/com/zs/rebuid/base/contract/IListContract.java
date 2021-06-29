@@ -1,6 +1,7 @@
 package com.zs.rebuid.base.contract;
 
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.zs.rebuid.base.view.base.IBaseView;
 

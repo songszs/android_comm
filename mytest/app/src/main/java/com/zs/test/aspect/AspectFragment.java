@@ -2,7 +2,8 @@ package com.zs.test.aspect;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.zs.R;
 import com.zs.base.view.BaseFragment;

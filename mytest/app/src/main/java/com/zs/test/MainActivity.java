@@ -3,9 +3,9 @@ package com.zs.test;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.zs.R;
 import com.zs.base.router.AuthRouterManager;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         mainLooper.postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_TOOLBAR);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_JETPACK);
             }
         }, 1000);
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.hello).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_RETROFIT);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_JETPACK);
             }
         });
     }

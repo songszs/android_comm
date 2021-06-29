@@ -17,8 +17,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelUuid;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.zs.R;
 import com.zs.base.view.BaseFragment;

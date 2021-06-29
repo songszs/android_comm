@@ -2,16 +2,16 @@ package com.zs.rebuid;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import com.zs.R;
 import com.zs.base.view.BaseFragment;
 import com.zs.rebuid.base.ToolbarPresenter;
-import com.zs.rebuid.base.contract.INetworkViewContract;
 import com.zs.rebuid.base.view.NetworkViewWrapper;
 import com.zs.rebuid.base.view.PtrWrapper;
 import com.zs.rebuid.base.view.ToolbarWrapper;

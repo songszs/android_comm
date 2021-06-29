@@ -1,8 +1,9 @@
 package com.zs.test.butterknife;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.zs.R;
 import com.zs.base.view.BaseActivity;

@@ -1,6 +1,7 @@
 package com.zs.base.view;
 
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * @author: ZangSong

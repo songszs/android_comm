@@ -1,11 +1,8 @@
 package com.zs.test.bluetooth.fastble;
 
 import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattService;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.clj.fastble.BleManager;
@@ -18,7 +15,6 @@ import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.UUID;
 
 /**

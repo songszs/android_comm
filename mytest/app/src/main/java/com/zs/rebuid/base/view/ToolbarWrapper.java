@@ -2,13 +2,14 @@ package com.zs.rebuid.base.view;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 
 import com.zs.R;
 import com.zs.rebuid.base.contract.IToolbarContract;

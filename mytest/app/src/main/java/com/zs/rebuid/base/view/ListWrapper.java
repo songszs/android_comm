@@ -1,19 +1,13 @@
 package com.zs.rebuid.base.view;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.zs.R;
 import com.zs.rebuid.base.contract.IListContract;
-import com.zs.rebuid.base.contract.IToolbarContract;
 import com.zs.rebuid.base.view.base.BaseContentViewWrapper;
 
 /**
@@ -25,11 +19,6 @@ import com.zs.rebuid.base.view.base.BaseContentViewWrapper;
  */
 public class ListWrapper extends BaseContentViewWrapper implements IListContract.IView {
 
-
-    @Override
-    public void setAdapter(RecyclerView.Adapter adapter) {
-
-    }
 
     @Override
     public void init(Context context) {
@@ -59,5 +48,10 @@ public class ListWrapper extends BaseContentViewWrapper implements IListContract
     @Override
     public View getView() {
         return null;
+    }
+
+    @Override
+    public void setAdapter(RecyclerView.Adapter adapter) {
+
     }
 }
