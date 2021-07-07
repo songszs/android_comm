@@ -20,13 +20,7 @@ import com.zs.base.view.BaseFragment
  */
 class JetpackFragment : BaseFragment() {
 
-    val userProfileViewModel by lazy {
-        activity?.let {
-            ViewModelProvider(it).get(UserProfileViewModel::class.java)
-        }
-
-    }
-
+    var myPresenter : MyPresenter? = null
     override fun createViewId(): Int {
         return R.layout.main
     }
@@ -34,18 +28,20 @@ class JetpackFragment : BaseFragment() {
     override fun initView(view: View?) {
         super.initView(view)
         view?.findViewById<Button>(R.id.hello)?.setOnClickListener {
-            userProfileViewModel?.userLiveData?.value.apply {
+            myPresenter?.userLiveData?.value.apply {
                 this?.age = 30
                 this?.name = "zangsong"
             }.let {
-                userProfileViewModel?.userLiveData?.postValue(it)
+                myPresenter?.userLiveData?.postValue(it)
             }
         }
     }
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-        userProfileViewModel?.userLiveData?.observe(
+        myPresenter = MyPresenter(this)
+        lifecycle.addObserver(myPresenter!!)
+        myPresenter?.userLiveData?.observe(
             this,
             Observer<UserProfileViewModel.User> {
                 Log.d("JetpackFragment", "age " + it.age)

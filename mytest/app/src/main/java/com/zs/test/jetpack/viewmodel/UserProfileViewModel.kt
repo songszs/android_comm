@@ -1,5 +1,6 @@
 package com.zs.test.jetpack.viewmodel
 
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -24,5 +25,9 @@ class UserProfileViewModel : ViewModel() {
 
     fun loadUser() {
 
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }
