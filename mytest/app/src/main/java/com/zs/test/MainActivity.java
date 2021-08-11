@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         mainLooper.postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_JETPACK);
+                AuthRouterManager.getInstance().open(MainActivity.this, AuthRouterManager.URL_LOGIN_COROUTINES);
             }
         }, 1000);
 

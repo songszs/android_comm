@@ -56,8 +56,6 @@ android {
     }
 
 
-
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -181,9 +179,13 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     // For control over item selection of both touch and mouse driven selection
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"}
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 
+    // 协程
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+//    implementation 'org.jetbrains.Kotlinx:Kotlinx-coroutines-android:1.4.2'
 
+}
 //protobuf {
 //    protoc {
 //        // You still need protoc like in the non-Android case
